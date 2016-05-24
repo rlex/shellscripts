@@ -31,8 +31,7 @@ sed -n 's/\([0-9]\{1,3\}\.\)\{3\}[0-9]\{1,3\}/\nIPINDEX&\n/gp' $downfile | grep 
 #We need to drop all previous IPs in this address list because mikrotik does not check for duplicates (and they may be removed from file)
 echo /ip firewall address-list remove [find list=$list] > $outfile
 #Build rsc file...
-for line in $(cat $infile)
-    do
-        echo /ip firewall address-list add address="$line" list="$list" >> $outfile
-    done
+for line in $(cat $infile); do
+  echo /ip firewall address-list add address="$line" list="$list" >> $outfile
+done
 rm $downfile $infile
